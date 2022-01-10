@@ -2,6 +2,8 @@
 
 Create or edit actions secrets in repository or organizations
 
+Forked from [hmanzur/actions-set-secret](https://github.com/hmanzur/actions-set-secret) in order to add support for setting [Dependabot](https://github.com/dependabot) secrets.
+
 ## Usage
 
 ### Inputs
@@ -27,6 +29,10 @@ Create or edit actions secrets in repository or organizations
 
 `Boolean` Indicates the repo is an [organization](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-organizations). Default `false`
 
+### dependabot
+
+`Boolean` Indicates that secrets should also be persisted as [Dependabot secrets](https://docs.github.com/en/rest/reference/dependabot). Default `false`
+
 ### visibility
 
 `String` that configures the access that repositories have to the organization secret.
@@ -49,7 +55,7 @@ Response json payload
 ### For personal repo
 
 ```YAML
-uses: hmanzur/actions-set-secret@v2.0.0
+uses: merchstack/actions-set-secret@v2.1.0
 with:
   name: 'MY_SECRET_NAME'
   value: 'Lorem ipsun dolor simit'
@@ -60,7 +66,7 @@ with:
 ### For organizations
 
 ```YAML
-uses: hmanzur/actions-set-secret@v2.0.0
+uses: merchstack/actions-set-secret@v2.1.0
 with:
   name: 'MY_SECRET_NAME'
   value: 'Lorem ipsun dolor simit'
@@ -76,8 +82,10 @@ with:
 
 - [Get a repository public key](https://developer.github.com/v3/actions/secrets/#get-a-repository-public-key)
 - [Create or update repository secret](https://developer.github.com/v3/actions/secrets/#create-or-update-a-repository-secret)
+- [Create or update repository Dependabot secret](https://docs.github.com/en/rest/reference/dependabot#create-or-update-a-repository-secret)
 
 ### References for organization
 
 - [Get an organization public key](https://developer.github.com/v3/actions/secrets/#get-an-organization-public-key)
 - [Create or update an organization secret](https://developer.github.com/v3/actions/secrets/#create-or-update-an-organization-secret)
+- [Create or update an organization Dependabot secret](https://docs.github.com/en/rest/reference/dependabot#create-or-update-an-organization-secret)

@@ -1,6 +1,6 @@
 name: 'Set Action Secret'
 
-author: Habid Manzur
+author: Merchstack
 
 description: 'Create or update secrets in github repository'
 
@@ -23,6 +23,10 @@ inputs:
     required: false
 
   org:
+    description: Indicate is an organization repo
+    required: false
+  
+  dependabot:
     description: Indicate is an organization repo
     required: false
 

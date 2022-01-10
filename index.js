@@ -27,15 +27,22 @@ const boostrap = async (api, secret_name, secret_value) => {
       }
     }
 
-    const response = await api.setSecret(data, secret_name)
+    const responses = []
+    responses.push(await api.setSecret(data, secret_name))
+    if (api.shouldSetDependabot()) {
+      responses.push(await api.setDependabotSecret(data, secret_name))
+    }
 
-    console.error(response.status, response.data)
+    for (let i = 0; i < responses.length; i += 1) {
+      console.error(responses[i].status, responses[i].data)
+    }
 
-    if (response.status >= 400) {
-      Core.setFailed(response.data)
+    const data = JSON.stringify(responses.map(res => res.data))
+    if (responses[i].status >= 400) {
+      Core.setFailed(responses[i].data)
     } else {
-      Core.setOutput('status', response.status)
-      Core.setOutput('data', response.data)
+      Core.setOutput('status', JSON.stringify(responses.map(res => res.status)))
+      Core.setOutput('data', data)
     }
 
   } catch (e) {
@@ -52,8 +59,9 @@ try {
   const repository = Core.getInput('repository')
   const token = Core.getInput('token')
   const org = Core.getInput('org')
+  const dependabot = Core.getInput('dependabot')
 
-  const api = new Api(token, repository, !!org)
+  const api = new Api(token, repository, !!org, !!dependabot)
 
   boostrap(api, name, value)
 

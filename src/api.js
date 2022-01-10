@@ -11,12 +11,14 @@ module.exports = class Api {
    * @param {any} auth - Auth method
    * @param {string} repo - Repository in format username/repo-name
    * @param {boolean} org - Is a Organization
+   * @param {boolean} dependabot - Should set dependabot secrets
    * @returns {Promise<{data: object}>} - Fetch response
    */
-  constructor(auth, repo, org = false) {
+  constructor(auth, repo, org = false, dependabot = false) {
     this.octokit = new Octokit({ auth })
     this._repo = repo
     this._org = org
+    this._dependabot = dependabot
     this._base = org ? 'orgs' : 'repos'
   }
 
@@ -63,8 +65,24 @@ module.exports = class Api {
    * @param {string} name - Secret name
    * @returns {Promise} - Fetch Response
    */
-  async setSecret(data, name) {
+   async setSecret(data, name) {
     return this.octokit.request('PUT /:base/:repo/actions/secrets/:name', {
+      base: this._base,
+      repo: this._repo,
+      name,
+      data
+    })
+  }
+
+  /**
+   * Set dependabot secret on repository
+   *
+   * @param {{encrypted_value:string, key_id:string}} data - Object data to request
+   * @param {string} name - Secret name
+   * @returns {Promise} - Fetch Response
+   */
+   async setDependabotSecret(data, name) {
+    return this.octokit.request('PUT /:base/:repo/dependabot/secrets/:name', {
       base: this._base,
       repo: this._repo,
       name,
@@ -79,5 +97,14 @@ module.exports = class Api {
    */
   isOrg() {
     return this._org
+  }
+
+  /**
+   * Dependabot checker
+   *
+   * @returns {boolean} - Is organization
+   */
+  shouldSetDependabot() {
+    return this._dependabot
   }
 }
