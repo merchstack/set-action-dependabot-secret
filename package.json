@@ -1,7 +1,7 @@
 {
   "name": "secret-updater",
-  "version": "2.0.1",
-  "repository": "https://github.com/hmanzur/actions-set-secret",
+  "version": "2.1.3",
+  "repository": "https://github.com/merchstack/set-action-dependabot-secret",
   "license": "MIT License",
   "scripts": {
     "lint": "eslint .",

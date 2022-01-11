@@ -55,7 +55,7 @@ Response json payload
 ### For personal repo
 
 ```YAML
-uses: merchstack/actions-set-secret@v2.1.0
+uses: merchstack/set-action-dependabot-secret@v/2.1.3
 with:
   name: 'MY_SECRET_NAME'
   value: 'Lorem ipsun dolor simit'
@@ -66,7 +66,7 @@ with:
 ### For organizations
 
 ```YAML
-uses: merchstack/actions-set-secret@v2.1.0
+uses: merchstack/set-action-dependabot-secret@v/2.1.3
 with:
   name: 'MY_SECRET_NAME'
   value: 'Lorem ipsun dolor simit'
