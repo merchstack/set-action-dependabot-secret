@@ -57,7 +57,7 @@ const boostrap = async (api, secret_name, secret_value) => {
         }
       }
 
-      const response = await api.setDependabotSecret(data, secret_name, api.shouldSetDependabot())
+      const response = await api.setSecret(data, secret_name, api.shouldSetDependabot())
 
       console.error(response.status, response.data)
 
