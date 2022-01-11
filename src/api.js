@@ -65,7 +65,7 @@ module.exports = class Api {
    * @param {string} name - Secret name
    * @returns {Promise} - Fetch Response
    */
-   async setSecret(data, name) {
+  async setSecret(data, name) {
     return this.octokit.request('PUT /:base/:repo/actions/secrets/:name', {
       base: this._base,
       repo: this._repo,
@@ -81,7 +81,7 @@ module.exports = class Api {
    * @param {string} name - Secret name
    * @returns {Promise} - Fetch Response
    */
-   async setDependabotSecret(data, name) {
+  async setDependabotSecret(data, name) {
     return this.octokit.request('PUT /:base/:repo/dependabot/secrets/:name', {
       base: this._base,
       repo: this._repo,

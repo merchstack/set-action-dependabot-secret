@@ -35,14 +35,12 @@ const boostrap = async (api, secret_name, secret_value) => {
 
     for (let i = 0; i < responses.length; i += 1) {
       console.error(responses[i].status, responses[i].data)
-    }
-
-    const data = JSON.stringify(responses.map(res => res.data))
-    if (responses[i].status >= 400) {
-      Core.setFailed(responses[i].data)
-    } else {
-      Core.setOutput('status', JSON.stringify(responses.map(res => res.status)))
-      Core.setOutput('data', data)
+      if (responses[i].status >= 400) {
+        Core.setFailed(responses[i].data)
+      } else {
+        Core.setOutput('status', responses[i].status)
+        Core.setOutput('data', responses[i].data)
+      }
     }
 
   } catch (e) {
