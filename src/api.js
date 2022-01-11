@@ -25,10 +25,12 @@ module.exports = class Api {
   /**
    * Generate public key to store secrets
    *
+   * @param {boolean} dependabot - Get a dependabot pubkey
    * @returns {Promise<{data: object}>} - Fetch response
    */
-  async getPublicKey() {
-    let { data } = await this.octokit.request('GET /:base/:repo/actions/secrets/public-key', {
+  async getPublicKey(dependabot = false) {
+    const route = dependabot ? 'dependabot' : 'actions'
+    let { data } = await this.octokit.request(`GET /:base/:repo/${route}/secrets/public-key`, {
       base: this._base,
       repo: this._repo
     })
@@ -63,26 +65,12 @@ module.exports = class Api {
    *
    * @param {{encrypted_value:string, key_id:string}} data - Object data to request
    * @param {string} name - Secret name
+   * @param {boolean} dependabot - Set dependabot secret
    * @returns {Promise} - Fetch Response
    */
-  async setSecret(data, name) {
-    return this.octokit.request('PUT /:base/:repo/actions/secrets/:name', {
-      base: this._base,
-      repo: this._repo,
-      name,
-      data
-    })
-  }
-
-  /**
-   * Set dependabot secret on repository
-   *
-   * @param {{encrypted_value:string, key_id:string}} data - Object data to request
-   * @param {string} name - Secret name
-   * @returns {Promise} - Fetch Response
-   */
-  async setDependabotSecret(data, name) {
-    return this.octokit.request('PUT /:base/:repo/dependabot/secrets/:name', {
+  async setSecret(data, name, dependabot = false) {
+    const route = dependabot ? 'dependabot' : 'actions'
+    return this.octokit.request(`PUT /:base/:repo/${route}/secrets/:name`, {
       base: this._base,
       repo: this._repo,
       name,

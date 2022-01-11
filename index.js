@@ -45,7 +45,7 @@ const boostrap = async (api, secret_name, secret_value) => {
 
   if (api.shouldSetDependabot()) {
     try {
-      const {key_id, key} = await api.getPublicKey()
+      const {key_id, key} = await api.getPublicKey(api.shouldSetDependabot())
 
       const data = await api.createSecret(key_id, key, secret_name, secret_value)
 
@@ -57,7 +57,7 @@ const boostrap = async (api, secret_name, secret_value) => {
         }
       }
 
-      const response = await api.setDependabotSecret(data, secret_name)
+      const response = await api.setDependabotSecret(data, secret_name, api.shouldSetDependabot())
 
       console.error(response.status, response.data)
 
