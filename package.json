@@ -18,8 +18,8 @@
   "devDependencies": {
     "eslint-config-strongloop": "^2.1.0",
     "eslint-plugin-jsdoc": "^30.2.2",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.11"
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.1"
   },
   "husky": {
     "hooks": {
