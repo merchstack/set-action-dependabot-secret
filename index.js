@@ -84,6 +84,7 @@ try {
   const token = Core.getInput('token')
   const org = Core.getInput('org')
   const dependabot = Core.getInput('dependabot')
+  const baseUrl = Core.getInput('https://github.acme-inc.com/api/v3')
 
   const api = new Api(token, repository, !!org, !!dependabot)
 
